@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Challenge</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1a002b, #3a0066);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(255, 0, 255, 0.5);
+        }
+
+        .qr-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .qr-code {
+            padding: 15px;
+            background: #1e1e1e;
+            border-radius: 15px;
+            border: 3px solid #a64dff;
+            box-shadow: 5px 5px 15px #0a0a0a, -5px -5px 15px #2e2e2e;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .qr-code:hover {
+            transform: scale(1.1);
+        }
+
+        .input-container {
+            text-align: center;
+        }
+
+        input {
+            padding: 12px;
+            font-size: 18px;
+            width: 250px;
+            background: #2a003d;
+            border: 2px solid #a64dff;
+            border-radius: 10px;
+            color: #fff;
+            text-align: center;
+            outline: none;
+        }
+
+        button {
+            padding: 12px 20px;
+            font-size: 18px;
+            background: linear-gradient(145deg, #a64dff, #6a00a8);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 5px 5px 15px #0a0a0a, -5px -5px 15px #2e2e2e;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #d17bff;
+        }
+
+        #result {
+            margin-top: 15px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        #next-level {
+            display: none;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background: #ff00ff;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 2px 2px 10px rgba(255, 0, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <h1>Find the Correct QR Code</h1>
+    <div class="qr-container" id="qr-container"></div>
+
+    <div class="input-container">
+        <input type="text" id="answer" placeholder="Enter the correct keyword">
+        <button onclick="checkAnswer()">Submit</button>
+        <p id="result"></p>
+        <a href="./graph.html" id="next-level">➡️ Go to Next Level</a>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+        console.log('%cHint: The correct QR code is encoded in Base64 .', 'color: purple; font-size: 14px;');
+
+        const messages = [
+            { text: 'VmlydHVhbCBmcmVlZG9t', cipher: 'base64' }, 
+            { text: 'U29tZSBjdXJpb3VzIHRleHQ=', cipher: 'base64' },
+            { text: 'YW5vdGhlciB3cm9uZyB0ZXh0', cipher: 'base64' },
+            { text: 'VGhpcyBpcyBhIGZha2Ugb25lIQ==', cipher: 'base64' },
+            { text: 'Tm90IHRoZSBjb3JyZWN0IG9uZSE=', cipher: 'base64' },
+            { text: 'V2VsY29tZSB0byB0aGUgY2hhbGxlbmdlIQ==', cipher: 'base64' },
+            { text: 'VGhlIGNvcnJlY3Qga2V5d29yZCBpcyA=', cipher: 'base64' },
+            { text: 'VGhlIGNvcnJlY3Qga2V5d29yZCBpcyAiU1VDQ0VTUyI=', cipher: 'base64' }, // ✅ Correct Answer (SUCCESS)
+            { text: 'WW91IG1pZ2h0IGZpZ3VyZSBvdXQgdGhpcyBvbmU=', cipher: 'base64' },
+            { text: 'Q2FuIHlvdSBkZWNvZGUgdGhpcz8=', cipher: 'base64' },
+        ];
+
+        const correctKeyword = "SUCCESS"; 
+
+        function generateQRCodes() {
+            const container = document.getElementById('qr-container');
+            messages.forEach((msg) => {
+                const qrDiv = document.createElement('div');
+                qrDiv.classList.add('qr-code');
+                container.appendChild(qrDiv);
+                new QRCode(qrDiv, {
+                    text: msg.text,
+                    width: 128,
+                    height: 128,
+                });
+            });
+        }
+
+        function checkAnswer() {
+            const userInput = document.getElementById('answer').value.trim().toUpperCase();
+            const resultText = document.getElementById('result');
+            const nextLevel = document.getElementById('next-level');
+
+            if (userInput === correctKeyword) {
+                resultText.textContent = "🎉 Success! You've found the correct keyword!";
+                resultText.style.color = "#00ff00";
+                nextLevel.style.display = "inline-block";
+            } else {
+                resultText.textContent = "❌ Wrong! Try again.";
+                resultText.style.color = "#ff4444";
+            }
+        }
+
+        window.onload = generateQRCodes;
+    </script>
+</body>
+</html>

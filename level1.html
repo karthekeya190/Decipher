@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RGB Background Challenge</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1a002b, #3a0066);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            margin: 0;
+            transition: background-color 0.5s ease-in-out;
+        }
+
+        h1 {
+            font-size: 32px;
+            text-shadow: 2px 2px 10px rgba(255, 0, 255, 0.5);
+        }
+
+        .hint {
+            background: rgba(255, 255, 255, 0.1);
+            font-size: x-large;
+            padding: 10px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 5px 5px 15px #0a0a0a, -5px -5px 15px #2e2e2e;
+        }
+
+        .hidden-section {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .cipher-text {
+            display: none;
+            background: rgba(0, 255, 0, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 255, 0, 0.5);
+            font-size: 18px;
+            font-weight: bold;
+            color: #00ff00;
+        }
+
+        .input-section {
+            margin-top: 20px;
+        }
+
+        input {
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            background-color: #7d00ff;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #5a00cc;
+        }
+
+        .success-message {
+            display: none;
+            margin-top: 20px;
+            background: rgba(0, 255, 0, 0.3);
+            padding: 10px;
+            border-radius: 10px;
+            font-weight: bold;
+            color: #00ff00;
+            box-shadow: 2px 2px 10px rgba(0, 255, 0, 0.5);
+        }
+
+        .next-level {
+            display: none;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background: #ff00ff;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 2px 2px 10px rgba(255, 0, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <h1>Level-1</h1>
+    <p class="hint">"Triumph is shaded in the depths of (22+12, 150-11, 17+17) 🍃"</p>
+
+    <!-- Hidden Cipher Section -->
+    <div class="hidden-section" id="cipher-section">
+        <p class="cipher-text" id="cipher-text"></p>
+        
+        <!-- Input Section -->
+        <div class="input-section">
+            <input type="text" id="answer-input" placeholder="Enter decoded text">
+            <button onclick="checkAnswer()">Submit</button>
+        </div>
+
+        <!-- Success Message -->
+        <p class="success-message" id="success-message">🎉 Correct! Proceed to the next level.</p>
+
+        <!-- Link to next level -->
+        <a href="./qr.html" class="next-level" id="next-level-link">➡️ Go to Next Level</a>
+    </div>
+
+    <script>
+        const hiddenCipherText = "Uryyb Jbeyq!"; // ROT13 encoded "Hello World!"
+        
+        function checkBackgroundColor() {
+            const bodyBgColor = window.getComputedStyle(document.body).backgroundColor;
+            const correctColor = "rgb(34, 139, 34)"; // Forest Green
+
+            if (bodyBgColor === correctColor) {
+                document.getElementById("cipher-section").style.display = "block";
+                document.getElementById("cipher-text").style.display = "block";
+                document.getElementById("cipher-text").textContent = "🔒 Cipher Text: " + hiddenCipherText;
+            } else {
+                document.getElementById("cipher-section").style.display = "none";
+                document.getElementById("cipher-text").style.display = "none";
+                document.getElementById("success-message").style.display = "none";
+                document.getElementById("next-level-link").style.display = "none";
+            }
+        }
+
+        function checkAnswer() {
+            const userAnswer = document.getElementById("answer-input").value.trim();
+            if (userAnswer.toLowerCase() === "hello world") {
+                document.getElementById("success-message").style.display = "block";
+                document.getElementById("next-level-link").style.display = "inline-block";
+            } else {
+                alert("❌ Incorrect! Try again.");
+            }
+        }
+
+        setInterval(checkBackgroundColor, 500); // Continuously check the background color
+    </script>
+</body>
+</html>

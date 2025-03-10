@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Congratulations!</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1a002b, #3a0066);
+            color: #fff;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        h1 {
+            font-size: 42px;
+            text-shadow: 3px 3px 15px rgba(255, 0, 255, 0.7);
+            animation: glow 1.5s infinite alternate;
+        }
+        @keyframes glow {
+            from {
+                text-shadow: 2px 2px 15px rgba(255, 0, 255, 0.4);
+            }
+            to {
+                text-shadow: 4px 4px 25px rgba(255, 0, 255, 0.9);
+            }
+        }
+        .quote {
+            font-size: 20px;
+            margin-top: 10px;
+            opacity: 0.8;
+        }
+        .instructions {
+            font-size: 18px;
+            margin-top: 30px;
+            padding: 12px 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+    <h1>🎉 Congratulations! 🎉</h1>
+    <p class="quote">"Decrypting the future, one challenge at a time."</p>
+    <p class="instructions">Click anywhere to celebrate</p>
+    <script>
+        // Custom confetti colors matching our theme
+        const colors = ['#ff00ff', '#a64dff', '#6a00a8', '#d17bff', '#ffffff'];
+        
+        // Helper function to launch confetti with default options
+        function launchConfetti(options) {
+            if (typeof confetti === "function") {
+                confetti({
+                    ...options
+                });
+            } else {
+                console.error("Confetti function is not defined.");
+            }
+        }
+        
+        // Initial confetti burst when page loads
+        window.addEventListener('load', () => {
+            launchConfetti({
+                particleCount: 150,
+                spread: 100,
+                origin: { y: 0.6 },
+                colors: colors
+            });
+        });
+        
+        // Click anywhere to trigger a confetti burst
+        document.addEventListener('click', (e) => {
+            // Calculate origin based on click position
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            // Create a burst where the user clicks
+            launchConfetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { x, y },
+                colors: colors,
+                startVelocity: 30,
+                ticks: 200
+            });
+            
+            // Add a second smaller burst for effect
+            setTimeout(() => {
+                launchConfetti({
+                    particleCount: 50,
+                    spread: 40,
+                    origin: { x, y },
+                    colors: colors,
+                    startVelocity: 20,
+                    ticks: 150
+                });
+            }, 150);
+        });
+    </script>
+</body>
+</html>
