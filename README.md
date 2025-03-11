@@ -23,7 +23,7 @@ Welcome to **Decipher - 4 Level Escape Room!** This is a web-based puzzle game b
 ## Installation & Setup
 1. Clone this repository:
    ```bash
-   git clone https://github.com/karthekeya190/decipher.git
+   git clone https://github.com/your-username/Decipher.git
    ```
 2. Navigate to the project folder:
    ```bash
