@@ -1,7 +1,7 @@
-# Decipher - 4 Level Escape Room
+# Cyber Hunt 4 Level Escape Room
 
 ## Overview
-Welcome to **Decipher - 4 Level Escape Room!** This is a web-based puzzle game built using **HTML, CSS, and JavaScript**. Players must solve a series of interactive challenges to advance through four unique levels and ultimately escape.
+Welcome to **Cyber Hunt - 4 Level Escape Room!** This is a web-based puzzle game built using **HTML, CSS, and JavaScript**. Players must solve a series of interactive challenges to advance through four unique levels and ultimately escape.
 
 ## Features
 - **4 Challenging Levels**: Each level presents a unique puzzle requiring logical thinking and problem-solving skills.
